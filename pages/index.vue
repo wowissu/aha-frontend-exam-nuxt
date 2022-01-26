@@ -1,19 +1,18 @@
 <script lang="ts" setup>
-import PageLayout from '~/layouts/PageLayout.vue';
-import Btn from '~~/components/Btn.vue';
+import PageLayout from '~~/layouts/PageLayout.vue';
 </script>
 
 <template>
   <PageLayout>
-    <div>
+    <div class="flex flex-col gap-y-4 items-center">
       <Btn>my btn</Btn>
 
-      <Btn round>
-        round button
+      <Btn size="xs" round>
+        Button<br>Button
       </Btn>
 
-      <Btn outline>
-        outline
+      <Btn size="xs" round outline>
+        Button
       </Btn>
     </div>
   </PageLayout>
