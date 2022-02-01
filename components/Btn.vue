@@ -27,7 +27,7 @@ const isRoundedFull = computed(() => props.round);
 <template>
   <component
     :is="props.tag"
-    class="border border-white justify-center items-center"
+    class="inline-flex border border-white justify-center items-center"
     :class="{
       'text-greyscale-300 bg-white hover:bg-greyscale-300 hover:text-white': colorPattern === 'normal',
       'text-white bg-greyscale-300 hover:bg-white hover:text-greyscale-300': colorPattern === 'outline',

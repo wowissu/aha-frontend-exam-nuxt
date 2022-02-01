@@ -15,6 +15,8 @@ module.exports = {
     process: 'readonly',
     Capacitor: 'readonly',
     chrome: 'readonly',
+    useNuxtApp: 'readonly',
+    // definePageMeta: 'readonly'
   },
 
   // Rules order is important, please avoid shuffling them
@@ -56,6 +58,7 @@ module.exports = {
         '@wowissu/eslint-config/vue/vue3'
       ],
       rules: {
+        'no-undef': 'off',
         '@typescript-eslint/restrict-template-expressions': [1, {
           allowNumber: true
         }],

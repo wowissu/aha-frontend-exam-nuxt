@@ -4,6 +4,9 @@ import './assets/css/tailwind.css';
 
 <template>
   <div>
+    <!-- <Head>
+      <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1">
+    </Head> -->
     <NuxtPage />
   </div>
 </template>

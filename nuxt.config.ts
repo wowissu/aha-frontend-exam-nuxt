@@ -17,6 +17,7 @@ export default defineNuxtConfig({
     link: [{ rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Ubuntu:300,400,700' }]
   },
   buildModules: [
+    // '@nuxtjs/device',
     '@pinia/nuxt'
   ],
   vite: {

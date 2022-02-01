@@ -7,10 +7,13 @@ interface TabProps {
 
 const props = defineProps<TabProps>();
 const slots = useSlots();
-const activeSlot = ref<VNode>();
+const activeNode = ref<VNode>();
+const prevNode = ref<VNode>();
 
 watchEffect(() => {
-  activeSlot.value = slots.default().find((slot) => {
+  prevNode.value = activeNode.value;
+
+  activeNode.value = slots.default().find((slot) => {
     return slot.props.name === props.modelValue;
   });
 });
@@ -18,5 +21,7 @@ watchEffect(() => {
 </script>
 
 <template>
-  <component :is="activeSlot" :key="props.modelValue" />
+  <div>
+    <component :is="activeNode" :key="props.modelValue" />
+  </div>
 </template>

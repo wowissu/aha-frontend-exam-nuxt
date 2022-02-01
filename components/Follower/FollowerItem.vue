@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { Follower } from '~~/composables/follower';
+import { Follower } from '~~/types/follower';
 
 interface FollowerItemProps {
   follower: Follower;

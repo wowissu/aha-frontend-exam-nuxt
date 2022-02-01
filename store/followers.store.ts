@@ -1,15 +1,23 @@
 import { defineStore } from 'pinia';
-import { Follower, useFollowerMock } from '~~/composables/follower';
+import { Follower } from '~~/types/follower';
 
-export const userFollowers = defineStore('followers', () => {
+export const useFollowerStore = defineStore('followers', () => {
   const followers = ref<Follower[]>([]);
+  const following = computed(() => followers.value.filter(row => row.isFollowing));
 
-  // make mock data
-  followers.value = useFollowerMock(50);
+  async function updateFollowers () {
+    const { $api } = useNuxtApp();
+
+    const res = await $api.fetchFollowers();
+
+    followers.value = res.data;
+  }
 
   return {
-    followers
+    followers,
+    following,
+    updateFollowers
   };
 });
 
-export default userFollowers;
+export default useFollowerStore;

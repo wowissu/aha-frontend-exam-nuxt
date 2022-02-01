@@ -8,6 +8,16 @@ module.exports = {
     // './nuxt.config.{js,ts}'
   ],
   theme: {
+    screens: {
+      'sm': '576px',
+      // => @media (min-width: 576px) { ... }
+
+      'md': '960px',
+      // => @media (min-width: 960px) { ... }
+
+      'lg': '1440px'
+      // => @media (min-width: 1440px) { ... }
+    },
     extend: {
       colors: {
         primary: {
@@ -20,8 +30,11 @@ module.exports = {
           100: '#1B1B1B',
           200: '#181818',
           300: '#121212',
-          400: '#888888',
+          400: '#B2B2B2',
           500: '#929292'
+        },
+        secondary: {
+          notify: '#00D1FF'
         }
       },
       lineHeight: {
