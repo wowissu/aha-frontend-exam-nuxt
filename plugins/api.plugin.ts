@@ -1,39 +1,16 @@
 import { defineNuxtPlugin } from '#app';
-import axios, { AxiosInstance } from 'axios';
-import useMock from '~~/composables/mock';
-import { Follower } from '~~/types/follower';
-import { Result, ResultQueryString } from '~~/types/results';
-import { Tag } from '~~/types/tags';
+import { ResultQueryString } from '~~/types/results';
 
 export default defineNuxtPlugin(() => {
-  const instance = axios.create({
-    baseURL: '/',
-    timeout: 1000
-  });
-
-  const apiService = new ApiServices(instance);
+  const apiInstance = {
+    useFollowersFetcher: () => useFetch('/api/followers'),
+    useResultsFetcher: (query: ResultQueryString) => useFetch('/api/results', { params: query }),
+    useTagsFetcher: () => useFetch('/api/tags')
+  };
 
   return {
     provide: {
-      api: apiService
+      api: apiInstance
     }
   };
 });
-
-class ApiServices {
-  constructor (public instance: AxiosInstance) {
-    useMock(instance);
-  }
-
-  public fetchFollowers () {
-    return this.instance.get<Follower[]>('/api/followers');
-  }
-
-  public fetchResults (query: ResultQueryString) {
-    return this.instance.get<Result[]>('/api/results', { params: query });
-  }
-
-  public fetchTags () {
-    return this.instance.get<Tag[]>('/api/tags');
-  }
-}

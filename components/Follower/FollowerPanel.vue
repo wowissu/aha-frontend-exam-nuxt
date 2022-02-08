@@ -7,8 +7,6 @@ const tab = ref<'Followers' | 'Following'>('Followers');
 const followerStore = useFollowerStore();
 const { followers, following } = storeToRefs(followerStore);
 
-await followerStore.updateFollowers();
-
 </script>
 
 <template>

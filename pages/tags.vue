@@ -1,15 +1,10 @@
 <script lang="ts" setup>
 import { useLayout } from '~~/composables/layout';
-import { Tag } from '~~/types/tags';
 
 const { $api } = useNuxtApp();
 const layout = useLayout();
 
-const tags = ref<Tag[]>([]);
-
-const res = await $api.fetchTags();
-
-tags.value = res.data;
+const { data: tags } = await $api.useTagsFetcher();
 
 </script>
 

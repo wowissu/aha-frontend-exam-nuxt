@@ -22,7 +22,7 @@ function getRandomInt (max: number) {
 
 function useFollowerMock () {
   return (): [200, Follower[]] => {
-    const avatars = import.meta.globEager('/assets/img/avatars/*.png');
+    const avatars = import.meta.globEager('/public/img/avatars/*.png');
     const avatarUrls = Object.values(avatars).map(({ default: url }) => url);
 
     const followers: Follower[] = Array<Follower>(50).fill({

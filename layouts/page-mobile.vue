@@ -6,7 +6,7 @@ import UnionSvg from '~~/assets/img/Union.svg?raw';
 <template>
   <div class="min-h-screen w-screen flex flex-col">
     <div class="sticky top-0 h-[70px] px-[7px] bg-greyscale-200 z-50 flex items-center">
-      <slot name="header">
+      <slot name="mobile-header">
         <div class="cursor-pointer text-white mx-[20px]" @click="$router.push('/')" v-html="ArrowLeftSvg" />
         <div class="text-2xl leading-[1.5]">
           Home Page

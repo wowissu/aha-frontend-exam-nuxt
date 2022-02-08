@@ -1,18 +1,11 @@
 <script lang="ts" setup>
 import ArrowLeftSvg from '~~/assets/img/arrow-left.svg?raw';
 import { Result } from '~~/types/results';
-import { onBeforeRouteUpdate } from 'vue-router';
 
 const { $api } = useNuxtApp();
 const route = useRoute();
 const resultsPageStack = ref<Record<string, Result[]>>({});
 const results = computed(() => [].concat.apply([], Object.values(resultsPageStack.value)));
-
-onBeforeRouteUpdate(async (to, from, next) => {
-  await resolveQuery(to);
-
-  next();
-});
 
 async function resolveQuery (to = route) {
   if (to.query && Object.values(to.query).length) {
@@ -23,15 +16,20 @@ async function resolveQuery (to = route) {
 }
 
 async function loadMoreResults () {
-  const query = route.query;
-  const nextPageNum = Object.keys(resultsPageStack.value).length + 1;
-  const res = await $api.fetchResults({
-    keyword: query.keyword as string,
-    pageSize: parseInt(query.pageSize as string),
-    page: nextPageNum
-  });
+  try {
+    const query = route.query;
+    const nextPageNum = Object.keys(resultsPageStack.value).length + 1;
 
-  resultsPageStack.value[nextPageNum] = res.data;
+    const { data } = await $api.useResultsFetcher({
+      keyword: query.keyword as string,
+      pageSize: parseInt(query.pageSize as string),
+      page: nextPageNum
+    });
+
+    resultsPageStack.value[nextPageNum] = data.value;
+  } catch (err) {
+    console.error(err);
+  }
 }
 
 await resolveQuery();
@@ -55,7 +53,7 @@ await resolveQuery();
       </div>
       <!-- List -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 w-full gap-y-4 gap-x-[34px]">
-        <div v-for="result in results" :key="result.id" class="">
+        <div v-for="result in results" :key="result.id">
           <ResultItem :row="result" />
         </div>
       </div>

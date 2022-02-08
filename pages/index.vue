@@ -13,6 +13,9 @@ const hasQuery = computed(() => !!Object.keys(route.query).length);
 
 <template>
   <NuxtLayout :name="layout">
+    <template #mobile-header>
+      <LogoBox />
+    </template>
     <template v-if="hasQuery">
       <HomeResultPage />
     </template>
