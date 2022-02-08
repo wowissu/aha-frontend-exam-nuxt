@@ -27,16 +27,10 @@ const { followers, following, pending: followersPending } = storeToRefs(follower
         <TabPanels v-model="tab">
           <TabPanel name="Followers">
             <div class="flex flex-wrap">
+              <FollowerItem v-for="(follower, index) in followers" :key="index" :follower="follower" />
               <template v-if="followersPending">
                 <FollowerItemSkeleton />
                 <FollowerItemSkeleton />
-                <FollowerItemSkeleton />
-                <FollowerItemSkeleton />
-                <FollowerItemSkeleton />
-                <FollowerItemSkeleton />
-              </template>
-              <template v-else>
-                <FollowerItem v-for="(follower, index) in followers" :key="index" :follower="follower" />
               </template>
             </div>
           </TabPanel>
