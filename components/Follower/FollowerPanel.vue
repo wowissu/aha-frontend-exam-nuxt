@@ -2,10 +2,11 @@
 import { storeToRefs } from 'pinia';
 import { ref } from 'vue';
 import useFollowerStore from '~~/store/followers.store';
+import FollowerItemSkeleton from '~~/components/Follower/FollowerItemSkeleton.vue';
 
 const tab = ref<'Followers' | 'Following'>('Followers');
 const followerStore = useFollowerStore();
-const { followers, following } = storeToRefs(followerStore);
+const { followers, following, pending: followersPending } = storeToRefs(followerStore);
 
 </script>
 
@@ -26,7 +27,17 @@ const { followers, following } = storeToRefs(followerStore);
         <TabPanels v-model="tab">
           <TabPanel name="Followers">
             <div class="flex flex-wrap">
-              <FollowerItem v-for="(follower, index) in followers" :key="index" :follower="follower" />
+              <template v-if="followersPending">
+                <FollowerItemSkeleton />
+                <FollowerItemSkeleton />
+                <FollowerItemSkeleton />
+                <FollowerItemSkeleton />
+                <FollowerItemSkeleton />
+                <FollowerItemSkeleton />
+              </template>
+              <template v-else>
+                <FollowerItem v-for="(follower, index) in followers" :key="index" :follower="follower" />
+              </template>
             </div>
           </TabPanel>
           <TabPanel name="Following">

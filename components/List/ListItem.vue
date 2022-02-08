@@ -11,7 +11,7 @@ const props = defineProps<ListItemProps>();
 </script>
 
 <template>
-  <div class="w-full px-4 py-2">
+  <div class="list-item w-full px-4 py-2">
     <div class="flex flex-nowrap items-center">
       <div class="mr-4">
         <div class="border border-[#F8F8F8] rounded-[5px] w-[40px] h-[40px]">

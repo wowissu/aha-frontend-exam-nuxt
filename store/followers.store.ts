@@ -9,7 +9,8 @@ export const useFollowerStore = defineStore('followers', () => {
   return {
     followers,
     following,
-    refresh: followerAsyncData.refresh
+    refresh: followerAsyncData.refresh,
+    pending: followerAsyncData.pending
   };
 });
 

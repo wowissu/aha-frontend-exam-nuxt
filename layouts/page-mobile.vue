@@ -1,6 +1,9 @@
 <script lang="ts" setup>
 import ArrowLeftSvg from '~~/assets/img/arrow-left.svg?raw';
 import UnionSvg from '~~/assets/img/Union.svg?raw';
+
+const props = defineProps<{ mainClass: string }>();
+
 </script>
 
 <template>
@@ -14,7 +17,7 @@ import UnionSvg from '~~/assets/img/Union.svg?raw';
       </slot>
     </div>
 
-    <main class="flex-grow">
+    <main class="flex-grow" :class="props.mainClass">
       <slot name="default">
         <!-- default slot -->
       </slot>

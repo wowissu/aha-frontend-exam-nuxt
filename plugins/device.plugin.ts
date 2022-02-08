@@ -141,7 +141,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 
   return {
     provide: {
-      device
+      device: device.value
     }
   };
 });

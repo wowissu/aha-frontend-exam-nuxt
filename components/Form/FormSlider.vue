@@ -13,7 +13,6 @@ const anchorKeys = ref<AnchorKey[]>([3, 6, 9, 12, 15, 50]);
 const anchorRefMap = reactive<Record<AnchorKey, HTMLDivElement>>({});
 const anchorPageXMap = ref<Record<AnchorKey, number>>({});
 const currentAnchorKey = ref<AnchorKey>();
-const rockerRef = ref<HTMLDivElement>();
 const lineBarRef = ref<HTMLDivElement>();
 const lineBarLeft = computed(() => lineBarRef.value.getBoundingClientRect().left);
 const lineBarWidth = computed(() => lineBarRef.value.parentElement.offsetWidth);
@@ -35,7 +34,7 @@ function onRockerMousedown (mousedownEvt: MouseEvent) {
     window.removeEventListener('mouseup', onRockerMouseup);
 
     lineBarRef.value.classList.remove('no-transition');
-    setClosestAnchorAsCurrent(evt.pageX);
+    setClosestAnchorAsCurrent(evt.pageX, false);
 
     evt.stopPropagation();
     evt.preventDefault();
@@ -45,12 +44,14 @@ function onRockerMousedown (mousedownEvt: MouseEvent) {
   window.addEventListener('mouseup', onRockerMouseup);
 }
 
-function setClosestAnchorAsCurrent (needle: number) {
+function setClosestAnchorAsCurrent (needle: number, ignoreCurrent = true) {
   const map = anchorPageXMap.value;
+
+  console.log('setClosestAnchorAsCurrent');
 
   const cloestAnchorKey = Object.entries(map)
     .filter(([anchorkey]) => {
-      return +anchorkey !== currentAnchorKey.value;
+      return ignoreCurrent ? (+anchorkey !== currentAnchorKey.value) : true;
     })
     .reduce((candidateKey, [anchorkey, anchorX]) => {
       const candidateX = map[candidateKey];
@@ -72,9 +73,13 @@ function setLineWidth (val: number, offsetX = lineBarLeft.value) {
   lineBarRef.value.style.setProperty('width', `${w}px`);
 }
 
-function setCurrentAnchorKey (anchorKey: AnchorKey) {
-  currentAnchorKey.value = anchorKey;
-  emits('update:modelValue', anchorKey);
+function setCurrentAnchorKey (aKey: AnchorKey) {
+  currentAnchorKey.value = aKey;
+  emits('update:modelValue', aKey);
+
+  const val = anchorPageXMap.value[aKey.toString()] ?? 0;
+
+  setLineWidth(val);
 }
 
 function onLineBarClick (e: PointerEvent) {
@@ -114,7 +119,7 @@ onMounted(() => {
         <!-- line -->
         <div ref="lineBarRef" class="line rounded" style="width: 0px;">
           <!-- line dot -->
-          <div ref="rockerRef" class="line-rocker" @mousedown.prevent.stop="onRockerMousedown" />
+          <div class="line-rocker" @mousedown.prevent.stop="onRockerMousedown" @click.prevent.stop />
         </div>
       </div>
       <!-- anchors -->
@@ -125,7 +130,7 @@ onMounted(() => {
           :ref="(el: HTMLDivElement) => anchorRefMap[aKey] = el"
           class="anchor"
         >
-          <div>
+          <div class="inline-block -translate-x-1/2">
             {{ aKey }}
           </div>
         </div>
@@ -184,30 +189,14 @@ onMounted(() => {
     color: #FFFFFF;
     opacity: 0.5;
     width: 1px;
-    height: 1px;
     position: relative;
-  }
-
-  .anchor:last-child div {
-    position: absolute;
-    right: 0px;
-    top: 0px;
-  }
-
-  .anchor:first-child div {
-    position: absolute;
-    left: 0px;
-    top: 0px;
   }
 
   .anchor:not(:last-child):not(:first-child) {
     left: -10px;
   }
 
-  .anchor:not(:last-child):not(:first-child) div {
-    transform: translateX(-50%);
-    transform-origin: left;
-    position: absolute;
-    top: 0px;
+  .anchor:first-child div, .anchor:last-child div {
+    transform: translateX();
   }
 </style>

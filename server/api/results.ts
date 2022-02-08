@@ -8,7 +8,7 @@ const pic = [
   'https://picsum.photos/id/190/300/200'
 ];
 
-export default (req: IncomingMessage): Result[] => {
+export default (req: IncomingMessage): Promise<Result[]> => {
   const query = useQuery(req);
   // const body = await useBody(req);
   const pageSize = +(query.pageSize as string);
@@ -24,5 +24,9 @@ export default (req: IncomingMessage): Result[] => {
     id: index + 1
   }));
 
-  return data;
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(data);
+    }, 1000);
+  });
 };
