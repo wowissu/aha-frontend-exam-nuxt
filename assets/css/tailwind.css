@@ -3,6 +3,9 @@
 @tailwind utilities;
 
 body {
+  --screen-bg-color: #181818;
+  --screen-text-color: white;
+
   font-family: 'Ubuntu', sans-serif;
   font-size: 16px;
   color: var(--screen-text-color);

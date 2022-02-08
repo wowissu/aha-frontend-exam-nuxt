@@ -42,11 +42,3 @@ import UnionSvg from '~~/assets/img/Union.svg?raw';
     </aside>
   </div>
 </template>
-
-<style lang="css">
-:root {
-  /* define root vars for: assets/css/tailwind.css */
-  --screen-bg-color: #181818;
-  --screen-text-color: white;
-}
-</style>

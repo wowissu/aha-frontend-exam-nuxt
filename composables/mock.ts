@@ -16,27 +16,328 @@ export default function useMock (apiInstance: AxiosInstance) {
   };
 }
 
-function getRandomInt (max: number) {
-  return Math.floor(Math.random() * max);
-}
+// function getRandomInt (max: number) {
+//   return Math.floor(Math.random() * max);
+// }
 
 function useFollowerMock () {
-  return () => {
-    const avatars = import.meta.globEager('/assets/img/avatars/*.png');
-    const avatarUrls = Object.values(avatars).map(({ default: url }) => url);
+  return (): [200, Follower[]] => {
+    // const avatars = import.meta.globEager('/assets/img/avatars/*.png');
+    // const avatarUrls = Object.values(avatars).map(({ default: url }) => url);
 
-    const followers: Follower[] = Array<Follower>(50).fill({
-      avatar: '',
-      fullname: 'Fullname',
-      username: 'username',
-      isFollowing: false
-    }).map((row) => ({
-      ...row,
-      avatar: avatarUrls[Math.max(getRandomInt(avatarUrls.length - 1), 0)],
-      isFollowing: getRandomInt(100) < 10
-    }));
+    // const followers: Follower[] = Array<Follower>(50).fill({
+    //   avatar: '',
+    //   fullname: 'Fullname',
+    //   username: 'username',
+    //   isFollowing: false
+    // }).map((row) => ({
+    //   ...row,
+    //   avatar: avatarUrls[Math.max(getRandomInt(avatarUrls.length - 1), 0)],
+    //   isFollowing: getRandomInt(100) < 10
+    // }));
 
-    return [200, followers];
+    return [200, [
+      {
+        'avatar': '/_nuxt/assets/img/avatars/avatar-1.png',
+        'fullname': 'Fullname',
+        'username': 'username',
+        'isFollowing': false
+      },
+      {
+        'avatar': '/_nuxt/assets/img/avatars/avatar-7.png',
+        'fullname': 'Fullname',
+        'username': 'username',
+        'isFollowing': false
+      },
+      {
+        'avatar': '/_nuxt/assets/img/avatars/avatar-10.png',
+        'fullname': 'Fullname',
+        'username': 'username',
+        'isFollowing': true
+      },
+      {
+        'avatar': '/_nuxt/assets/img/avatars/avatar-8.png',
+        'fullname': 'Fullname',
+        'username': 'username',
+        'isFollowing': false
+      },
+      {
+        'avatar': '/_nuxt/assets/img/avatars/avatar-4.png',
+        'fullname': 'Fullname',
+        'username': 'username',
+        'isFollowing': false
+      },
+      {
+        'avatar': '/_nuxt/assets/img/avatars/avatar-10.png',
+        'fullname': 'Fullname',
+        'username': 'username',
+        'isFollowing': false
+      },
+      {
+        'avatar': '/_nuxt/assets/img/avatars/avatar-5.png',
+        'fullname': 'Fullname',
+        'username': 'username',
+        'isFollowing': false
+      },
+      {
+        'avatar': '/_nuxt/assets/img/avatars/avatar-10.png',
+        'fullname': 'Fullname',
+        'username': 'username',
+        'isFollowing': false
+      },
+      {
+        'avatar': '/_nuxt/assets/img/avatars/avatar-8.png',
+        'fullname': 'Fullname',
+        'username': 'username',
+        'isFollowing': false
+      },
+      {
+        'avatar': '/_nuxt/assets/img/avatars/avatar-1.png',
+        'fullname': 'Fullname',
+        'username': 'username',
+        'isFollowing': false
+      },
+      {
+        'avatar': '/_nuxt/assets/img/avatars/avatar-4.png',
+        'fullname': 'Fullname',
+        'username': 'username',
+        'isFollowing': false
+      },
+      {
+        'avatar': '/_nuxt/assets/img/avatars/avatar-4.png',
+        'fullname': 'Fullname',
+        'username': 'username',
+        'isFollowing': false
+      },
+      {
+        'avatar': '/_nuxt/assets/img/avatars/avatar-5.png',
+        'fullname': 'Fullname',
+        'username': 'username',
+        'isFollowing': false
+      },
+      {
+        'avatar': '/_nuxt/assets/img/avatars/avatar-10.png',
+        'fullname': 'Fullname',
+        'username': 'username',
+        'isFollowing': false
+      },
+      {
+        'avatar': '/_nuxt/assets/img/avatars/avatar-5.png',
+        'fullname': 'Fullname',
+        'username': 'username',
+        'isFollowing': false
+      },
+      {
+        'avatar': '/_nuxt/assets/img/avatars/avatar-1.png',
+        'fullname': 'Fullname',
+        'username': 'username',
+        'isFollowing': false
+      },
+      {
+        'avatar': '/_nuxt/assets/img/avatars/avatar-4.png',
+        'fullname': 'Fullname',
+        'username': 'username',
+        'isFollowing': false
+      },
+      {
+        'avatar': '/_nuxt/assets/img/avatars/avatar-7.png',
+        'fullname': 'Fullname',
+        'username': 'username',
+        'isFollowing': false
+      },
+      {
+        'avatar': '/_nuxt/assets/img/avatars/avatar-7.png',
+        'fullname': 'Fullname',
+        'username': 'username',
+        'isFollowing': false
+      },
+      {
+        'avatar': '/_nuxt/assets/img/avatars/avatar-4.png',
+        'fullname': 'Fullname',
+        'username': 'username',
+        'isFollowing': false
+      },
+      {
+        'avatar': '/_nuxt/assets/img/avatars/avatar-5.png',
+        'fullname': 'Fullname',
+        'username': 'username',
+        'isFollowing': false
+      },
+      {
+        'avatar': '/_nuxt/assets/img/avatars/avatar-6.png',
+        'fullname': 'Fullname',
+        'username': 'username',
+        'isFollowing': false
+      },
+      {
+        'avatar': '/_nuxt/assets/img/avatars/avatar-7.png',
+        'fullname': 'Fullname',
+        'username': 'username',
+        'isFollowing': false
+      },
+      {
+        'avatar': '/_nuxt/assets/img/avatars/avatar-7.png',
+        'fullname': 'Fullname',
+        'username': 'username',
+        'isFollowing': false
+      },
+      {
+        'avatar': '/_nuxt/assets/img/avatars/avatar-4.png',
+        'fullname': 'Fullname',
+        'username': 'username',
+        'isFollowing': false
+      },
+      {
+        'avatar': '/_nuxt/assets/img/avatars/avatar-10.png',
+        'fullname': 'Fullname',
+        'username': 'username',
+        'isFollowing': false
+      },
+      {
+        'avatar': '/_nuxt/assets/img/avatars/avatar-8.png',
+        'fullname': 'Fullname',
+        'username': 'username',
+        'isFollowing': false
+      },
+      {
+        'avatar': '/_nuxt/assets/img/avatars/avatar-1.png',
+        'fullname': 'Fullname',
+        'username': 'username',
+        'isFollowing': false
+      },
+      {
+        'avatar': '/_nuxt/assets/img/avatars/avatar-8.png',
+        'fullname': 'Fullname',
+        'username': 'username',
+        'isFollowing': false
+      },
+      {
+        'avatar': '/_nuxt/assets/img/avatars/avatar-6.png',
+        'fullname': 'Fullname',
+        'username': 'username',
+        'isFollowing': false
+      },
+      {
+        'avatar': '/_nuxt/assets/img/avatars/avatar-4.png',
+        'fullname': 'Fullname',
+        'username': 'username',
+        'isFollowing': true
+      },
+      {
+        'avatar': '/_nuxt/assets/img/avatars/avatar-10.png',
+        'fullname': 'Fullname',
+        'username': 'username',
+        'isFollowing': false
+      },
+      {
+        'avatar': '/_nuxt/assets/img/avatars/avatar-8.png',
+        'fullname': 'Fullname',
+        'username': 'username',
+        'isFollowing': true
+      },
+      {
+        'avatar': '/_nuxt/assets/img/avatars/avatar-6.png',
+        'fullname': 'Fullname',
+        'username': 'username',
+        'isFollowing': false
+      },
+      {
+        'avatar': '/_nuxt/assets/img/avatars/avatar-1.png',
+        'fullname': 'Fullname',
+        'username': 'username',
+        'isFollowing': false
+      },
+      {
+        'avatar': '/_nuxt/assets/img/avatars/avatar-4.png',
+        'fullname': 'Fullname',
+        'username': 'username',
+        'isFollowing': false
+      },
+      {
+        'avatar': '/_nuxt/assets/img/avatars/avatar-6.png',
+        'fullname': 'Fullname',
+        'username': 'username',
+        'isFollowing': true
+      },
+      {
+        'avatar': '/_nuxt/assets/img/avatars/avatar-10.png',
+        'fullname': 'Fullname',
+        'username': 'username',
+        'isFollowing': false
+      },
+      {
+        'avatar': '/_nuxt/assets/img/avatars/avatar-8.png',
+        'fullname': 'Fullname',
+        'username': 'username',
+        'isFollowing': false
+      },
+      {
+        'avatar': '/_nuxt/assets/img/avatars/avatar-6.png',
+        'fullname': 'Fullname',
+        'username': 'username',
+        'isFollowing': false
+      },
+      {
+        'avatar': '/_nuxt/assets/img/avatars/avatar-8.png',
+        'fullname': 'Fullname',
+        'username': 'username',
+        'isFollowing': true
+      },
+      {
+        'avatar': '/_nuxt/assets/img/avatars/avatar-7.png',
+        'fullname': 'Fullname',
+        'username': 'username',
+        'isFollowing': false
+      },
+      {
+        'avatar': '/_nuxt/assets/img/avatars/avatar-6.png',
+        'fullname': 'Fullname',
+        'username': 'username',
+        'isFollowing': false
+      },
+      {
+        'avatar': '/_nuxt/assets/img/avatars/avatar-8.png',
+        'fullname': 'Fullname',
+        'username': 'username',
+        'isFollowing': false
+      },
+      {
+        'avatar': '/_nuxt/assets/img/avatars/avatar-4.png',
+        'fullname': 'Fullname',
+        'username': 'username',
+        'isFollowing': false
+      },
+      {
+        'avatar': '/_nuxt/assets/img/avatars/avatar-4.png',
+        'fullname': 'Fullname',
+        'username': 'username',
+        'isFollowing': true
+      },
+      {
+        'avatar': '/_nuxt/assets/img/avatars/avatar-4.png',
+        'fullname': 'Fullname',
+        'username': 'username',
+        'isFollowing': false
+      },
+      {
+        'avatar': '/_nuxt/assets/img/avatars/avatar-1.png',
+        'fullname': 'Fullname',
+        'username': 'username',
+        'isFollowing': true
+      },
+      {
+        'avatar': '/_nuxt/assets/img/avatars/avatar-10.png',
+        'fullname': 'Fullname',
+        'username': 'username',
+        'isFollowing': false
+      },
+      {
+        'avatar': '/_nuxt/assets/img/avatars/avatar-8.png',
+        'fullname': 'Fullname',
+        'username': 'username',
+        'isFollowing': false
+      }
+    ]];
   };
 }
 
@@ -47,8 +348,8 @@ function useResultMock () {
     'https://picsum.photos/id/190/300/200'
   ];
 
-  return () => {
-    const data = Array<Result>(6).fill({
+  return (req) => {
+    const data = Array<Result>(req.params.pageSize).fill({
       id: 1,
       image: '',
       title: 'This is a title',

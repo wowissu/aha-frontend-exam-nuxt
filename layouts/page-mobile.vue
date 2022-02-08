@@ -44,12 +44,6 @@ import UnionSvg from '~~/assets/img/Union.svg?raw';
 </template>
 
 <style lang="css">
-:root {
-  /* define root vars for: assets/css/tailwind.css */
-  --screen-bg-color: #181818;
-  --screen-text-color: white;
-}
-
 .nav {
   background: rgba(24, 24, 24, 0.2);
   box-shadow: inset 0px 0.5px 0px rgba(0, 0, 0, 0.8);

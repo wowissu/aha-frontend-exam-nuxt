@@ -4,6 +4,12 @@ import { defineNuxtConfig } from 'nuxt3';
 export default defineNuxtConfig({
   css: ['~/assets/css/tailwind.css'],
   build: {
+    hotMiddleware: {
+      client: {
+        quiet: true,
+        autoConnect: false
+      }
+    },
     postcss: {
       postcssOptions: {
         plugins: {
@@ -25,6 +31,12 @@ export default defineNuxtConfig({
       watch: {
         usePolling: true
       }
+    }
+  },
+  vue: {
+    config: {
+      productionTip: false,
+      devtools: true
     }
   }
 });

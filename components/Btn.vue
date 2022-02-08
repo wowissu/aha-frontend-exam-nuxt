@@ -20,7 +20,6 @@ const props = withDefaults(defineProps<BtnProps>(), {
 });
 
 const colorPattern = computed(() => props.outline ? 'outline' : 'normal');
-const isRoundedFull = computed(() => props.round);
 
 </script>
 
@@ -32,8 +31,8 @@ const isRoundedFull = computed(() => props.round);
       'text-greyscale-300 bg-white hover:bg-greyscale-300 hover:text-white': colorPattern === 'normal',
       'text-white bg-greyscale-300 hover:bg-white hover:text-greyscale-300': colorPattern === 'outline',
       // rounded
-      'rounded': !isRoundedFull,
-      'rounded-[20px]': isRoundedFull,
+      'rounded': !props.round,
+      'rounded-[20px]': props.round,
       // shrink
       'p-[5px] h-[40px]': props.size === 'md',
       'py-[5px] px-[10px] min-h-[29px] text-xs': props.size === 'xs',
