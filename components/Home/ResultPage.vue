@@ -4,7 +4,6 @@ import { Result } from '~~/types/results';
 
 const { $api } = useNuxtApp();
 const route = useRoute();
-const loading = ref(false);
 const resultsPageStack = ref<Record<string, Result[]>>({});
 const results = computed(() => [].concat.apply([], Object.values(resultsPageStack.value)));
 
@@ -31,8 +30,6 @@ async function loadMoreResults () {
   } catch (err) {
     console.error(err);
     throw err;
-  } finally {
-    loading.value = false;
   }
 }
 
@@ -56,14 +53,9 @@ await resolveQuery();
     </div>
     <!-- List -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 w-full gap-y-4 gap-x-[34px]">
-      <template v-if="loading">
-        loading
-      </template>
-      <template v-else>
-        <div v-for="result in results" :key="result.id">
-          <ResultItem :row="result" />
-        </div>
-      </template>
+      <div v-for="result in results" :key="result.id">
+        <ResultItem :row="result" />
+      </div>
     </div>
     <!-- more -->
     <div class="pt-16">
