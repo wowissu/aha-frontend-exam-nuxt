@@ -1,16 +1,18 @@
 <script lang="ts" setup>
+import { AsyncData } from 'nuxt3';
 import ArrowLeftSvg from '~~/assets/img/arrow-left.svg?raw';
 import { Result } from '~~/types/results';
 
 const { $api } = useNuxtApp();
 const route = useRoute();
-const loading = ref(true);
-const resultsPageStack = ref<Record<string, Result[]>>({});
-const results = computed(() => [].concat.apply([], Object.values(resultsPageStack.value)));
+const pageResultsStack = ref<Record<string, Result[]>>({});
+const lastFetcher = ref<AsyncData<Result[]>>();
+const results = computed(() => [].concat.apply([], Object.values(pageResultsStack.value)));
+const resultsPending = computed(() => unref(unref(lastFetcher)?.pending) ?? false);
 
 async function resolveQuery (to = route) {
   if (to.query && Object.values(to.query).length) {
-    resultsPageStack.value = {};
+    pageResultsStack.value = {};
 
     await loadMoreResults();
   }
@@ -19,7 +21,7 @@ async function resolveQuery (to = route) {
 async function loadMoreResults () {
   try {
     const query = route.query;
-    const nextPageNum = Object.keys(resultsPageStack.value).length + 1;
+    const nextPageNum = Math.max(...Object.keys(pageResultsStack.value).map(k => +k), 0) + 1;
 
     const fetcher = $api.useResultsFetcher({
       keyword: query.keyword as string,
@@ -27,16 +29,14 @@ async function loadMoreResults () {
       page: nextPageNum
     });
 
-    loading.value = fetcher.pending.value;
+    lastFetcher.value = fetcher;
 
     const { data } = await fetcher;
 
-    resultsPageStack.value[nextPageNum] = data.value;
+    pageResultsStack.value = { ...pageResultsStack.value, [nextPageNum]: unref(data) };
   } catch (err) {
     console.error(err);
     throw err;
-  } finally {
-    loading.value = false;
   }
 }
 
@@ -66,15 +66,15 @@ onMounted(() => {
         <ResultItem :row="result" />
       </div>
       <!-- loading -->
-      <template v-if="loading">
-        <div v-for="i in 2" :key="i">
+      <template v-if="resultsPending">
+        <div v-for="i in 3" :key="i">
           <ResultItemSkeleton />
         </div>
       </template>
     </div>
     <!-- more -->
     <div class="pt-16">
-      <div v-if="!loading" class="max-w-full sm:max-w-[343px]">
+      <div v-if="!resultsPending" class="max-w-full sm:max-w-[343px]">
         <Btn full @click="loadMoreResults()">
           MORE
         </Btn>

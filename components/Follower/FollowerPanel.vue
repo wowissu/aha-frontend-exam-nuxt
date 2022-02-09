@@ -4,9 +4,24 @@ import { ref } from 'vue';
 import useFollowerStore from '~~/store/followers.store';
 import FollowerItemSkeleton from '~~/components/Follower/FollowerItemSkeleton.vue';
 
+const scrollWrapperRef = ref<HTMLDivElement>();
 const tab = ref<'Followers' | 'Following'>('Followers');
 const followerStore = useFollowerStore();
 const { followers, following, pending: followersPending } = storeToRefs(followerStore);
+
+void followerStore.fetch();
+
+function onScroll () {
+  const el = scrollWrapperRef.value;
+
+  if (!el) return;
+
+  const scrollBottom = el.scrollHeight - (el.scrollTop + el.offsetHeight);
+
+  if (scrollBottom <= 0) {
+    void followerStore.fetchMore();
+  }
+}
 
 </script>
 
@@ -22,7 +37,7 @@ const { followers, following, pending: followersPending } = storeToRefs(follower
         </TabsTab>
       </Tabs>
     </div>
-    <div class="flex-1 flex-grow overflow-y-auto">
+    <div ref="scrollWrapperRef" class="flex-1 flex-grow overflow-y-auto" @scroll="onScroll">
       <div class="py-6">
         <TabPanels v-model="tab">
           <TabPanel name="Followers">
@@ -37,6 +52,10 @@ const { followers, following, pending: followersPending } = storeToRefs(follower
           <TabPanel name="Following">
             <div class="flex flex-wrap">
               <FollowerItem v-for="(follower, index) in following" :key="index" :follower="follower" />
+              <template v-if="followersPending">
+                <FollowerItemSkeleton />
+                <FollowerItemSkeleton />
+              </template>
             </div>
           </TabPanel>
         </TabPanels>
